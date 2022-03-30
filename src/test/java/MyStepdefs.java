@@ -5,10 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +27,7 @@ public class MyStepdefs {
     @Given("I write in {string} in email")
     public void iWriteInInEmail(String email) {
 
-        //Reject all cookies, later when it might have appeared
+        //Reject all cookies, but wait for it to appear with this method
         rejectCookies(driver, By.id("onetrust-reject-all-handler"));
 
         if (email.equals("gherkinTester")){
@@ -64,7 +62,7 @@ public class MyStepdefs {
     public void writePassword(String password) {
         inputText(driver, By.id("new_password"), password);
 
-        //Scroll page to bottom of the page
+        //Scroll page to bottom of the page to be able to press the sign up button
         scrollPage(driver);
     }
 
@@ -105,7 +103,7 @@ public class MyStepdefs {
                 driver.quit();
                 break;
             default:
-                System.out.println("Something weird must have happened, most likely too weak password. Please check your inputs again.");
+                System.out.println("Something weird must have happened. Please check your inputs again.");
         }
 
     }
@@ -127,6 +125,7 @@ public class MyStepdefs {
     //Several methods to use
 
     //Scroll the page by 300 pixels, it will be enough to get to the bottom of the screen or at least to see the signup button
+    //Depending on window size of course, change if too low.
     private static void scrollPage(WebDriver driver) {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("window.scrollBy(0,300)");
@@ -144,7 +143,7 @@ public class MyStepdefs {
         driver.findElement(by).click();
     }
 
-    //Had to create this for itself to wait for cookies and the clickbutton method is changed to elementLocated instead
+    //Had to create this for itself to wait for cookies and the clickButton method is changed to elementLocated instead
     //otherwise it didn't really work for me
     private static void rejectCookies(WebDriver driver, By by) {
 

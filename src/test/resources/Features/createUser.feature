@@ -15,9 +15,13 @@ Feature: Create a user
     #blockUser - Tries to create a user with a userName that's already in use
 
     #email - Be sure to use "gherkinTester" when creating several proper new users to not get an error message about email already in use
+    #Also be sure to use something that looks like a proper email if you're not using "gherkinTester" or else the test will fail
+
     #userName - Be sure to use "gherkinTest" when creating several proper new users to not get an error message about user already in use
+    #If you want an original username be sure to not use any symbols or odd characters because the site won't accept those for a username
 
     #Password - Be sure to use capital letters, small letters, numbers, symbols and at least 8 characters long. Otherwise the test will also fail
+    #It will fail because you can't even click the sign up button if the password is too weak
 
     Examples:
       | browser | email                          | userName          | passWord | message   |
